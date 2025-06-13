@@ -46,10 +46,10 @@ def clean_tweet(text):
     text = text.lower()
     return text
 
-def sample_sentiment140(path, n_pos=1000, n_neg=1000, chunksize=200_000, random_state=42):
+def sample_sentiment140(path, n_pos=10000, n_neg=10000, chunksize=200_000, random_state=42):
     """
-    Read CSV in chunks, sample up to n_pos positives and n_neg negatives.
-    Returns a DataFrame with exactly n_pos rows of sentiment=4 and n_neg rows of sentiment=0 (if enough exist).
+    Read CSV in chunks, sample up to n_pos positives and n_neg negatives
+    Returns a DataFrame with exactly n_pos rows of sentiment=4 and n_neg rows of sentiment=0
     """
     pos_list = []
     neg_list = []
@@ -288,11 +288,11 @@ def grid_search_n_r(train_texts, test_pairs, self_label, n_values, r_values,
 
 
 if __name__ == "__main__":
-    # 1) Load the CSV
-    df = sample_sentiment140("twitter-text-sentiment-data.csv")
+    # Load the CSV
+    df = sample_sentiment140("../data/twitter-sentiment/twitter-text-sentiment-data.csv")
     print(f"Loaded {len(df)} tweets. Positives: {(df.sentiment==4).sum()}, Negatives: {(df.sentiment==0).sum()}")
 
-    # 2) Split the dataset into train and test
+    # Split the dataset into train and test
     train_raw, test_raw = train_test_split(
         df,
         test_size=0.2,
@@ -300,7 +300,7 @@ if __name__ == "__main__":
         random_state=42
     )
 
-    self_label = 4  # positive class label
+    self_label = 4 
 
     # Prepare raw train_texts (only positives) and test_pairs
     train_texts = [
@@ -316,11 +316,11 @@ if __name__ == "__main__":
     print(f"Available positive training texts (unfiltered by n): {len(train_texts)}")
     print(f"Available test texts (unfiltered by n): {len(test_pairs)}")
 
-    # 3) Prepare output directory early
+    # Prepare output directory early
     output_dir = create_output_dir()
     print(f"Output directory: {output_dir}")
 
-    # 4) Grid search for n and r ranges
+    # Grid search for n and r ranges
     n_values = range(6, 10)
     r_values = range(1, 3)
     print(f"Starting grid search over n={list(n_values)} and r={list(r_values)}")
@@ -340,7 +340,7 @@ if __name__ == "__main__":
     with open(os.path.join(output_dir, "best_params.json"), "w") as f:
         json.dump(best_params, f, indent=2)
 
-    # 5) Final run with best n, r
+    # Final run with best n, r
     if best_params:
         n_best = best_params['n']
         r_best = best_params['r']

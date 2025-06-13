@@ -48,7 +48,7 @@ def clean_tweet(text):
     text = text.lower()
     return text
 
-def sample_sentiment140(path, n_pos=1000, n_neg=1000, chunksize=200_000, random_state=42):
+def sample_sentiment140(path, n_pos=10000, n_neg=10000, chunksize=200_000, random_state=42):
     """
     Read CSV in chunks, sample up to n_pos positives and n_neg negatives.
     Returns a DataFrame with exactly n_pos rows of sentiment=4 and n_neg rows of sentiment=0 (if enough exist).
@@ -331,8 +331,7 @@ def train_rl_detector_system(train_sequences, test_sequences, labels, n, r, epis
 
 if __name__ == "__main__":
     # Load the CSV
-    df = sample_sentiment140("twitter-text-sentiment-data.csv")
-    # df = sample_sentiment140("../toy-data.csv")
+    df = sample_sentiment140("../data/twitter-sentiment/twitter-text-sentiment-data.csv")
     print(f"Loaded {len(df)} tweets. Positives: {(df.sentiment==4).sum()}, Negatives: {(df.sentiment==0).sum()}")
 
     # Split the dataset into train and test
