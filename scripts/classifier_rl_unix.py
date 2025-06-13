@@ -257,7 +257,7 @@ def train_rl_detector_system(train_sequences, test_sequences, labels, n=6, r=1, 
     return Q, best_detectors
 
 if __name__ == "__main__":
-    dataset_folder = "../negative-selection-data-and-scripts/syscalls/snd-cert"  # Change to desired dataset
+    dataset_folder = "../data/syscalls/snd-cert"
     print(f"Dataset folder: {dataset_folder}")
     
     # Load data

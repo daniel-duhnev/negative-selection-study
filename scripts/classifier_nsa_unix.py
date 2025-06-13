@@ -198,8 +198,8 @@ def evaluate_and_plot_dataset(folder, n=4, r=1):
     return overall_auc, auc_results
 
 if __name__ == "__main__":
-    dataset_folder_cert = "syscalls/snd-cert"
-    dataset_folder_unm = "syscalls/snd-unm"
+    dataset_folder_cert = "../data/syscalls/snd-cert"
+    dataset_folder_unm = "../data/syscalls/snd-unm"
     
     # Evaluate snd-cert dataset
     overall_auc_cert, auc_scores_cert = evaluate_and_plot_dataset(dataset_folder_cert)
